@@ -1,15 +1,17 @@
 <?php
+  namespace Ddnet\GithubBundle\Github\Api;
+  
+  use Ddnet\GithubBundle\Github\Api;
 
-/**
- * Searching organizations, getting organization information
- * and managing authenticated organization account information.
- *
- * @link      http://develop.github.com/p/orgs.html
- * @author    Antoine Berranger <antoine at ihqs dot net>
- * @license   MIT License
- */
-class Github_Api_Organization extends Github_Api
-{
+  /**
+   * Searching organizations, getting organization information
+   * and managing authenticated organization account information.
+   *
+   * @link      http://develop.github.com/p/orgs.html
+   * @author    Antoine Berranger <antoine at ihqs dot net>
+   * @license   MIT License
+   */
+  class ApiOrganization extends Api {
     const ADMIN = "admin";
     const PUSH = "push";
     const PULL = "pull";
@@ -27,11 +29,10 @@ class Github_Api_Organization extends Github_Api
      * @param   string  $name             the organization to show
      * @return  array                     informations about the organization
      */
-    public function show($name)
-    {
-        $response = $this->get('organizations/'.urlencode($name));
+    public function show($name) {
+      $response = $this->get('organizations/'.urlencode($name));
 
-        return $response['organization'];
+      return $response['organization'];
     }
 
     /**
@@ -41,11 +42,10 @@ class Github_Api_Organization extends Github_Api
      * @param   string  $name             the user name
      * @return  array                     the repositories
      */
-    public function getAllRepos($name)
-    {
-        $response = $this->get('organizations/repositories');
+    public function getAllRepos($name) {
+      $response = $this->get('organizations/repositories');
 
-        return $response['repositories'];
+      return $response['repositories'];
     }
 
     /**
@@ -55,11 +55,10 @@ class Github_Api_Organization extends Github_Api
      * @param   string  $name             the organization name
      * @return  array                     the repositories
      */
-    public function getPublicRepos($name)
-    {
-        $response = $this->get('organizations/'.urlencode($name).'/public_repositories');
+    public function getPublicRepos($name) {
+      $response = $this->get('organizations/'.urlencode($name).'/public_repositories');
 
-        return $response['repositories'];
+      return $response['repositories'];
     }
 
     /**
@@ -69,11 +68,10 @@ class Github_Api_Organization extends Github_Api
      * @param   string  $name             the organization name
      * @return  array                     the members
      */
-    public function getPublicMembers($name)
-    {
-        $response = $this->get('organizations/'.urlencode($name).'/public_members');
+    public function getPublicMembers($name) {
+      $response = $this->get('organizations/'.urlencode($name).'/public_members');
 
-        return $response['users'];
+      return $response['users'];
     }
 
     /**
@@ -83,11 +81,10 @@ class Github_Api_Organization extends Github_Api
      * @param   string  $name             the organization name
      * @return  array                     the teams
      */
-    public function getTeams($name)
-    {
-        $response = $this->get('organizations/'.urlencode($name).'/teams');
+    public function getTeams($name) {
+      $response = $this->get('organizations/'.urlencode($name).'/teams');
 
-        return $response['teams'];
+      return $response['teams'];
     }
 
     /**
@@ -101,19 +98,16 @@ class Github_Api_Organization extends Github_Api
      *
      * @return  array                     the teams
      */
-    public function addTeam($organization, $team, $permission, array $repositories = array())
-    {
-        if (!in_array($permission, self::$PERMISSIONS)) {
-            throw new InvalidArgumentException("Invalid value for the permission variable");
-        }
+    public function addTeam($organization, $team, $permission, array $repositories = array()) {
+      if (!in_array($permission, self::$PERMISSIONS))
+        throw new \InvalidArgumentException("Invalid value for the permission variable");
+        
+      $response = $this->post('organizations/'.urlencode($organization).'/teams', array(
+          'team' => $team,
+          'permission' => $permission,
+          'repo_names' => $repositories
+      ));
 
-        $response = $this->post('organizations/'.urlencode($organization).'/teams', array(
-            'team' => $team,
-            'permission' => $permission,
-            'repo_names' => $repositories
-        ));
-
-        return $response['teams'];
+      return $response['teams'];
     }
-
-}
+  }

@@ -1,14 +1,16 @@
 <?php
+  namespace Ddnet\GithubBundle\Github\Api;
+  
+  use Ddnet\GithubBundle\Github\Api;
 
-/**
- * Listing issues, searching, editing and closing your projects issues.
- *
- * @link      http://develop.github.com/p/issues.html
- * @author    Thibault Duplessis <thibault.duplessis at gmail dot com>
- * @license   MIT License
- */
-class Github_Api_Issue extends Github_Api
-{
+  /**
+   * Listing issues, searching, editing and closing your projects issues.
+   *
+   * @link      http://develop.github.com/p/issues.html
+   * @author    Thibault Duplessis <thibault.duplessis at gmail dot com>
+   * @license   MIT License
+   */
+  class ApiIssue extends Api {
     /**
      * List issues by username, repo and state
      * http://develop.github.com/p/issues.html#list_a_projects_issues
@@ -18,11 +20,10 @@ class Github_Api_Issue extends Github_Api
      * @param   string  $state            the issue state, can be open or closed
      * @return  array                     list of issues found
      */
-    public function getList($username, $repo, $state = 'open')
-    {
-        $response = $this->get('issues/list/'.urlencode($username).'/'.urlencode($repo).'/'.urlencode($state));
+    public function getList($username, $repo, $state = 'open') {
+      $response = $this->get('issues/list/'.urlencode($username).'/'.urlencode($repo).'/'.urlencode($state));
 
-        return $response['issues'];
+      return $response['issues'];
     }
 
     /**
@@ -35,11 +36,10 @@ class Github_Api_Issue extends Github_Api
      * @param   string  $searchTerm       the search term to filter issues by
      * @return  array                     list of issues found
      */
-    public function search($username, $repo, $state, $searchTerm)
-    {
-        $response = $this->get('issues/search/'.urlencode($username).'/'.urlencode($repo).'/'.urlencode($state).'/'.urlencode($searchTerm));
+    public function search($username, $repo, $state, $searchTerm) {
+      $response = $this->get('issues/search/'.urlencode($username).'/'.urlencode($repo).'/'.urlencode($state).'/'.urlencode($searchTerm));
 
-        return $response['issues'];
+      return $response['issues'];
     }
 
     /**
@@ -50,11 +50,10 @@ class Github_Api_Issue extends Github_Api
      * @param   string  $label            the label to filter issues by
      * @return  array                     list of issues found
      */
-    public function searchLabel($username, $repo, $label)
-    {
-        $response = $this->get('issues/list/'.urlencode($username).'/'.urlencode($repo).'/label/'.urlencode($label));
+    public function searchLabel($username, $repo, $label) {
+      $response = $this->get('issues/list/'.urlencode($username).'/'.urlencode($repo).'/label/'.urlencode($label));
 
-        return $response['issues'];
+      return $response['issues'];
     }
 
     /**
@@ -66,11 +65,10 @@ class Github_Api_Issue extends Github_Api
      * @param   string  $issueNumber      the issue number
      * @return  array                     information about the issue
      */
-    public function show($username, $repo, $issueNumber)
-    {
-        $response = $this->get('issues/show/'.urlencode($username).'/'.urlencode($repo).'/'.urlencode($issueNumber));
+    public function show($username, $repo, $issueNumber) {
+      $response = $this->get('issues/show/'.urlencode($username).'/'.urlencode($repo).'/'.urlencode($issueNumber));
 
-        return $response['issue'];
+      return $response['issue'];
     }
 
     /**
@@ -84,14 +82,13 @@ class Github_Api_Issue extends Github_Api
      * @param   string   $issueBody       the new issue body
      * @return  array                     information about the issue
      */
-    public function open($username, $repo, $issueTitle, $issueBody)
-    {
-        $response = $this->post('issues/open/'.urlencode($username).'/'.urlencode($repo), array(
+    public function open($username, $repo, $issueTitle, $issueBody) {
+      $response = $this->post('issues/open/'.urlencode($username).'/'.urlencode($repo), array(
             'title' => $issueTitle,
             'body' => $issueBody
-        ));
+      ));
 
-        return $response['issue'];
+      return $response['issue'];
     }
 
     /**
@@ -103,11 +100,10 @@ class Github_Api_Issue extends Github_Api
      * @param   string  $issueNumber      the issue number
      * @return  array                     information about the issue
      */
-    public function close($username, $repo, $issueNumber)
-    {
-        $response = $this->post('issues/close/'.urlencode($username).'/'.urlencode($repo).'/'.urlencode($issueNumber));
+    public function close($username, $repo, $issueNumber) {
+      $response = $this->post('issues/close/'.urlencode($username).'/'.urlencode($repo).'/'.urlencode($issueNumber));
 
-        return $response['issue'];
+      return $response['issue'];
     }
 
     /**
@@ -121,11 +117,10 @@ class Github_Api_Issue extends Github_Api
      *                                    key can be title or body
      * @return  array                     information about the issue
      */
-    public function update($username, $repo, $issueNumber, array $data)
-    {
-        $response = $this->post('issues/edit/'.urlencode($username).'/'.urlencode($repo).'/'.urlencode($issueNumber), $data);
+    public function update($username, $repo, $issueNumber, array $data) {
+      $response = $this->post('issues/edit/'.urlencode($username).'/'.urlencode($repo).'/'.urlencode($issueNumber), $data);
 
-        return $response['issue'];
+      return $response['issue'];
     }
 
     /**
@@ -137,11 +132,10 @@ class Github_Api_Issue extends Github_Api
      * @param   string  $issueNumber      the issue number
      * @return  array                     informations about the issue
      */
-    public function reOpen($username, $repo, $issueNumber)
-    {
-        $response = $this->post('issues/reopen/'.urlencode($username).'/'.urlencode($repo).'/'.urlencode($issueNumber));
+    public function reOpen($username, $repo, $issueNumber) {
+      $response = $this->post('issues/reopen/'.urlencode($username).'/'.urlencode($repo).'/'.urlencode($issueNumber));
 
-        return $response['issue'];
+      return $response['issue'];
     }
 
     /**
@@ -153,11 +147,10 @@ class Github_Api_Issue extends Github_Api
      * @param   string  $issueNumber      the issue number
      * @return  array                     list of issue comments
      */
-    public function getComments($username, $repo, $issueNumber)
-    {
-        $response = $this->get('issues/comments/'.urlencode($username).'/'.urlencode($repo).'/'.urlencode($issueNumber));
+    public function getComments($username, $repo, $issueNumber) {
+      $response = $this->get('issues/comments/'.urlencode($username).'/'.urlencode($repo).'/'.urlencode($issueNumber));
 
-        return $response['comments'];
+      return $response['comments'];
     }
 
     /**
@@ -170,13 +163,12 @@ class Github_Api_Issue extends Github_Api
      * @param   string  $comment          the comment body
      * @return  array                     the created comment
      */
-    public function addComment($username, $repo, $issueNumber, $commentBody)
-    {
-        $response = $this->post('issues/comment/'.urlencode($username).'/'.urlencode($repo).'/'.urlencode($issueNumber), array(
+    public function addComment($username, $repo, $issueNumber, $commentBody) {
+      $response = $this->post('issues/comment/'.urlencode($username).'/'.urlencode($repo).'/'.urlencode($issueNumber), array(
             'comment' => $commentBody
-        ));
+      ));
 
-        return $response['comment'];
+      return $response['comment'];
     }
 
     /**
@@ -187,11 +179,10 @@ class Github_Api_Issue extends Github_Api
      * @param   string  $repo             the repo
      * @return  array                     list of project labels
      */
-    public function getLabels($username, $repo)
-    {
-        $response = $this->get('issues/labels/'.urlencode($username).'/'.urlencode($repo));
+    public function getLabels($username, $repo) {
+      $response = $this->get('issues/labels/'.urlencode($username).'/'.urlencode($repo));
 
-        return $response['labels'];
+      return $response['labels'];
     }
 
     /**
@@ -204,11 +195,10 @@ class Github_Api_Issue extends Github_Api
      * @param   string  $labelName        the label name
      * @return  array                     list of issue labels
      */
-    public function addLabel($username, $repo, $labelName, $issueNumber)
-    {
-        $response = $this->post('issues/label/add/'.urlencode($username).'/'.urlencode($repo).'/'.urlencode($labelName).'/'.urlencode($issueNumber));
+    public function addLabel($username, $repo, $labelName, $issueNumber) {
+      $response = $this->post('issues/label/add/'.urlencode($username).'/'.urlencode($repo).'/'.urlencode($labelName).'/'.urlencode($issueNumber));
 
-        return $response['labels'];
+      return $response['labels'];
     }
 
     /**
@@ -221,10 +211,9 @@ class Github_Api_Issue extends Github_Api
      * @param   string  $labelName        the label name
      * @return  array                     list of issue labels
      */
-    public function removeLabel($username, $repo, $labelName, $issueNumber)
-    {
-        $response = $this->post('issues/label/remove/'.urlencode($username).'/'.urlencode($repo).'/'.urlencode($labelName).'/'.urlencode($issueNumber));
+    public function removeLabel($username, $repo, $labelName, $issueNumber) {
+      $response = $this->post('issues/label/remove/'.urlencode($username).'/'.urlencode($repo).'/'.urlencode($labelName).'/'.urlencode($issueNumber));
 
-        return $response['labels'];
+      return $response['labels'];
     }
-}
+  }

@@ -1,14 +1,16 @@
 <?php
+  namespace Ddnet\GithubBundle\Github\Api;
+  
+  use Ddnet\GithubBundle\Github\Api;
 
-/**
- * Getting full versions of specific files and trees in your Git repositories.
- *
- * @link      http://develop.github.com/p/object.html
- * @author    Thibault Duplessis <thibault.duplessis at gmail dot com>
- * @license   MIT License
- */
-class Github_Api_Object extends Github_Api
-{
+  /**
+   * Getting full versions of specific files and trees in your Git repositories.
+   *
+   * @link      http://develop.github.com/p/object.html
+   * @author    Thibault Duplessis <thibault.duplessis at gmail dot com>
+   * @license   MIT License
+   */
+  class ApiObject extends Api {
     /**
      * Get a listing of the root tree of a project by the username, repo, and tree SHA
      * http://develop.github.com/p/object.html#trees
@@ -18,11 +20,10 @@ class Github_Api_Object extends Github_Api
      * @param   string $treeSHA           the tree sha
      * @return  array                     root tree of the project
      */
-    public function showTree($username, $repo, $treeSHA)
-    {
-        $response = $this->get('tree/show/'.urlencode($username).'/'.urlencode($repo).'/'.urlencode($treeSHA));
+    public function showTree($username, $repo, $treeSHA) {
+      $response = $this->get('tree/show/'.urlencode($username).'/'.urlencode($repo).'/'.urlencode($treeSHA));
 
-        return $response['tree'];
+      return $response['tree'];
     }
 
     /**
@@ -35,11 +36,10 @@ class Github_Api_Object extends Github_Api
      * @param   string $path              the path
      * @return  array                     data blobs of tree
      */
-    public function listBlobs($username, $repo, $treeSHA)
-    {
-        $response = $this->get('blob/all/'.urlencode($username).'/'.urlencode($repo).'/'.urlencode($treeSHA));
+    public function listBlobs($username, $repo, $treeSHA) {
+      $response = $this->get('blob/all/'.urlencode($username).'/'.urlencode($repo).'/'.urlencode($treeSHA));
 
-        return $response['blobs'];
+      return $response['blobs'];
     }
 
     /**
@@ -52,11 +52,10 @@ class Github_Api_Object extends Github_Api
      * @param   string $path              the path
      * @return  array                     data blob of tree and path
      */
-    public function showBlob($username, $repo, $treeSHA, $path)
-    {
-        $response = $this->get('blob/show/'.urlencode($username).'/'.urlencode($repo).'/'.urlencode($treeSHA).'/'.urlencode($path));
+    public function showBlob($username, $repo, $treeSHA, $path) {
+      $response = $this->get('blob/show/'.urlencode($username).'/'.urlencode($repo).'/'.urlencode($treeSHA).'/'.urlencode($path));
 
-        return $response['blob'];
+      return $response['blob'];
     }
 
     /**
@@ -68,12 +67,11 @@ class Github_Api_Object extends Github_Api
      * @param   string $objectSHA         the object sha can be either a blob SHA1, a tree SHA1 or a commit SHA1
      * @return  string                    raw text content of the blob, tree or commit object
      */
-    public function getRawData($username, $repo, $objectSHA)
-    {
-        $response = $this->get('blob/show/'.urlencode($username).'/'.urlencode($repo).'/'.urlencode($objectSHA), array(), array(
-            'format' => 'text'
-        ));
+    public function getRawData($username, $repo, $objectSHA) {
+      $response = $this->get('blob/show/'.urlencode($username).'/'.urlencode($repo).'/'.urlencode($objectSHA), array(), array(
+          'format' => 'text'
+      ));
 
-        return $response;
+      return $response;
     }
-}
+  }

@@ -1,22 +1,24 @@
 <?php
+  namespace Ddnet\GithubBundle\Github\Api;
+  
+  use Ddnet\GithubBundle\Github\ApiInterface;
+  use Ddnet\GithubBundle\Github\Client;
 
-/**
- * Abstract class for Github_Api classes
- *
- * @author    Thibault Duplessis <thibault.duplessis at gmail dot com>
- * @license   MIT License
- */
-abstract class Github_Api implements Github_ApiInterface
-{
+  /**
+   * Abstract class for Github_Api classes
+   *
+   * @author    Thibault Duplessis <thibault.duplessis at gmail dot com>
+   * @license   MIT License
+   */
+  abstract class Api implements ApiInterface {
     /**
      * The client
      * @var Github_Client
      */
     private $client;
 
-    public function __construct(Github_Client $client)
-    {
-        $this->client = $client;
+    public function __construct(Client $client) {
+      $this->client = $client;
     }
 
     /**
@@ -28,9 +30,8 @@ abstract class Github_Api implements Github_ApiInterface
      * @param   array   $requestOptions   reconfigure the request
      * @return  array                     data returned
      */
-    protected function get($path, array $parameters = array(), $requestOptions = array())
-    {
-        return $this->client->get($path, $parameters, $requestOptions);
+    protected function get($path, array $parameters = array(), $requestOptions = array()) {
+      return $this->client->get($path, $parameters, $requestOptions);
     }
 
     /**
@@ -42,8 +43,7 @@ abstract class Github_Api implements Github_ApiInterface
      * @param   array   $requestOptions   reconfigure the request
      * @return  array                     data returned
      */
-    protected function post($path, array $parameters = array(), $requestOptions = array())
-    {
-        return $this->client->post($path, $parameters, $requestOptions);
+    protected function post($path, array $parameters = array(), $requestOptions = array()) {
+      return $this->client->post($path, $parameters, $requestOptions);
     }
-}
+  }

@@ -1,13 +1,9 @@
 <?php
+  namespace Ddnet\GithubBundle\Exception;
+  
+  use \Exception;
 
-/**
- * HttpClient communication error
- *
- * @author    Thibault Duplessis <thibault.duplessis at gmail dot com>
- * @license   MIT License
- */
-class Github_HttpClient_Exception extends Exception
-{
+  class GithubException extends Exception {
     /**
      * Http header-codes
      * @var  array
@@ -62,12 +58,9 @@ class Github_HttpClient_Exception extends Exception
      * @param  string $message
      * @param  int $code
      */
-    public function __construct($message = null, $code = null)
-    {
-        if (null === $message && null !== $code && array_key_exists((int) $code, self::$statusCodes)) {
-            $message = sprintf('HTTP %d: %s', $code, self::$statusCodes[(int) $code]);
-        }
-
+    public function __construct($message = null, $code = null) {
+      if(null == $message && null !== $code && array_key_exists((int) $code, self::$statusCodes))
+        $message = sprintf('HTTP %d: %s', $code, self::$statusCodes[(int) $code]);      
         parent::__construct($message, $code);
     }
-}
+  }

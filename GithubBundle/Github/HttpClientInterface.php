@@ -1,4 +1,5 @@
 <?php
+  namespace Ddnet\GithubBundle\Github\HttpClientInterface;
 
 /**
  * Performs requests on GitHub API. API documentation should be self-explanatory.
@@ -6,8 +7,7 @@
  * @author    Thibault Duplessis <thibault.duplessis at gmail dot com>
  * @license   MIT License
  */
-interface Github_HttpClientInterface
-{
+interface HttpClientInterface {
     /**
      * Send a GET request
      *

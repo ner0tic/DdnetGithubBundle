@@ -1,15 +1,17 @@
 <?php
-
-/**
- * Getting information on specific commits,
- * the diffs they introduce, the files they've changed.
- *
- * @link      http://develop.github.com/p/commits.html
- * @author    Thibault Duplessis <thibault.duplessis at gmail dot com>
- * @license   MIT License
- */
-class Github_Api_Commit extends Github_Api
-{
+  namespace Ddnet\GithubBundle\Github\Api;
+  
+  use Ddnet\GithubBundle\Github\Api;
+  
+  /**
+   * Getting information on specific commits,
+   * the diffs they introduce, the files they've changed.
+   *
+   * @link      http://develop.github.com/p/commits.html
+   * @author    Thibault Duplessis <thibault.duplessis at gmail dot com>
+   * @license   MIT License
+   */
+  class Github_Api_Commit extends Api {
     /**
      * List commits by username, repo and branch
      * http://develop.github.com/p/commits.html#listing_commits_on_a_branch
@@ -19,11 +21,10 @@ class Github_Api_Commit extends Github_Api
      * @param   string  $branch           the branch
      * @return  array                     list of users found
      */
-    public function getBranchCommits($username, $repo, $branch)
-    {
-        $response = $this->get('commits/list/'.urlencode($username).'/'.urlencode($repo).'/'.urlencode($branch));
+    public function getBranchCommits($username, $repo, $branch) {
+      $response = $this->get('commits/list/'.urlencode($username).'/'.urlencode($repo).'/'.urlencode($branch));
 
-        return $response['commits'];
+      return $response['commits'];
     }
 
     /**
@@ -36,11 +37,10 @@ class Github_Api_Commit extends Github_Api
      * @param   string  $path             the path
      * @return  array                     list of users found
      */
-    public function getFileCommits($username, $repo, $branch, $path)
-    {
-        $response = $this->get('commits/list/'.urlencode($username).'/'.urlencode($repo).'/'.urlencode($branch).'/'.urlencode($path));
+    public function getFileCommits($username, $repo, $branch, $path) {
+      $response = $this->get('commits/list/'.urlencode($username).'/'.urlencode($repo).'/'.urlencode($branch).'/'.urlencode($path));
 
-        return $response['commits'];
+      return $response['commits'];
     }
 
     /**
@@ -51,10 +51,9 @@ class Github_Api_Commit extends Github_Api
      * @param   string  $repo             the repo
      * @param   string  $sha              the commit sha
      */
-    public function getCommit($username, $repo, $sha)
-    {
-        $response = $this->get('commits/show/'.urlencode($username).'/'.urlencode($repo).'/'.urlencode($sha));
+    public function getCommit($username, $repo, $sha) {
+      $response = $this->get('commits/show/'.urlencode($username).'/'.urlencode($repo).'/'.urlencode($sha));
 
-        return $response['commit'];
+      return $response['commit'];
     }
-}
+  }
